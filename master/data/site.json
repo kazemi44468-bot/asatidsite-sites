@@ -1,0 +1,13 @@
+{
+  "siteType":"professor",
+  "name":"دکتر نمونه",
+  "nameEn":"Dr. Sample",
+  "title":"استاد دانشگاه · دانشمند · پژوهشگر",
+  "affiliation":"دانشگاه نمونه",
+  "faculty":"دانشکده مهندسی و فناوری",
+  "department":"گروه سامانه‌های هوشمند",
+  "bio":"این داده نمونه برای پایلوت Master Academic است و در نسخه واقعی از پرونده علمی استاد تغذیه می‌شود.",
+  "tagline":"پژوهش · آموزش · توسعه دانش",
+  "identityLinks":{"orcid":"#","scholar":"#","scopus":"#","researchgate":"#","linkedin":"#","github":"#"},
+  "contact":{"email":"professor@example.edu","phone":"۰۲۱ — ۱۲۳۴۵۶۷۸","address":"دانشگاه نمونه · دانشکده مهندسی و فناوری"}
+}
