@@ -1,0 +1,9 @@
+/* AsatidSite Sites — global page standards */
+@font-face{font-family:AsatidVazirmatn;src:url('../fonts/Vazirmatn-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:AsatidVazirmatn;src:url('../fonts/Vazirmatn-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:AsatidShekasteh;src:url('../fonts/Shekasteh V2.001.ttf') format('truetype');font-weight:400;font-display:swap}
+html[dir="rtl"] body{font-family:AsatidVazirmatn,Vazirmatn,Tahoma,sans-serif}
+.calligraphy,.about-script,.calligraphy-note,.script-title,.script-footer,.script-accent{font-family:AsatidShekasteh,Shekasteh,cursive!important;font-weight:400;font-style:normal}
+.mobile-nav{display:none}
+@media(max-width:700px){body{padding-bottom:84px!important}.mobile-nav{position:fixed!important;display:grid!important;grid-auto-flow:column;grid-auto-columns:1fr;bottom:10px;left:10px;right:10px;min-height:62px;padding:4px;background:rgba(16,43,61,.96);border:1px solid rgba(255,255,255,.12);border-radius:20px;z-index:9999;box-shadow:0 14px 38px rgba(16,43,61,.28);backdrop-filter:blur(16px)}.mobile-nav a{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#b9c3c8!important;text-decoration:none!important;font-size:9px!important;line-height:1.2}.mobile-nav a:first-child,.mobile-nav a:hover{color:#d4b57a!important}.mobile-nav b{font:17px Arial!important;line-height:1}.mobile-nav span{font-family:AsatidVazirmatn,Vazirmatn,Tahoma,sans-serif!important;font-size:8px!important}}
+@media(min-width:701px){.mobile-nav{display:none!important}}
