@@ -1,0 +1,45 @@
+name: Sync AsatidSite Sites
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sites repository
+        uses: actions/checkout@v4
+      - name: Download AsatidSite source
+        run: |
+          curl -L --fail https://github.com/kazemi44468-bot/asatidsite/archive/refs/heads/main.tar.gz -o /tmp/asatidsite.tar.gz
+          mkdir -p /tmp/source
+          tar -xzf /tmp/asatidsite.tar.gz -C /tmp/source --strip-components=1
+      - name: Copy required site assets
+        run: |
+          mkdir -p master registry samples/nozari assets
+          rm -rf master registry samples/nozari assets/fonts assets/css assets/js assets/images
+          cp -a /tmp/source/platform/site/professor-one-page/. master/
+          cp -a /tmp/source/platform/site/professors/. registry/
+          cp -a /tmp/source/platform/site/nozari/. samples/nozari/
+          cp -a /tmp/source/assets/fonts assets/fonts
+          cp -a /tmp/source/assets/css assets/css
+          cp -a /tmp/source/assets/js assets/js
+          cp -a /tmp/source/assets/images assets/images
+      - name: Normalize local asset paths
+        run: |
+          find registry -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' \) -print0 | xargs -0 sed -i "s#../../assets/#../assets/#g"
+          find master -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' \) -print0 | xargs -0 sed -i "s#../../../assets/#../assets/#g"
+          find samples/nozari -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' \) -print0 | xargs -0 sed -i "s#../../assets/#../assets/#g"
+      - name: Commit synchronized files
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add master registry samples/nozari assets
+          if git diff --cached --quiet; then
+            echo 'No synchronization changes.'
+          else
+            git commit -m 'Sync master template, professor registry, sample site and assets'
+            git push
+          fi
