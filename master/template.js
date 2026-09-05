@@ -31,10 +31,25 @@
     items.forEach(([href, text]) => { const link = make('a'); link.href = href; link.innerHTML = `<span>${icons[text]}</span><b>${text}</b>`; nav.append(link); }); document.body.append(nav);
   };
   const markHomeNav = () => { if (!isHome) return; const current = location.hash || '#home'; document.querySelectorAll('header nav a').forEach((link) => { if (link.getAttribute('href') === current) link.classList.add('active'); }); };
+  const persianizeHome = () => {
+    if (!isHome) return;
+    const replacements = {
+      'PROFESSOR / RESEARCHER / ACADEMIC PROFILE':'استاد · پژوهشگر · پروفایل علمی',
+      '01 / IDENTITY':'۰۱ · هویت علمی','Academic Profile':'پروفایل علمی','AI':'هوش مصنوعی','DATA':'علوم داده',
+      '01 / IDENTITY':'۰۱ · هویت علمی','02 / RESEARCH':'۰۲ · پژوهش','03 / WORKS':'۰۳ · آثار','04 / NETWORK':'۰۴ · شبکه علمی','05 / CONTACT':'۰۵ · ارتباط',
+      'ACADEMIC STATEMENT':'بیانیه علمی','RESEARCH 01':'پژوهش ۰۱','RESEARCH 02':'پژوهش ۰۲','RESEARCH 03':'پژوهش ۰۳','RESEARCH 04':'پژوهش ۰۴',
+      'ASATID / ACADEMIC':'قالب استاد','ASATID SITE · MASTER ACADEMIC':'اساتید سایت · قالب استاد'
+    };
+    document.querySelectorAll('body *').forEach((el) => {
+      if (el.children.length) return;
+      const text = el.textContent.trim();
+      if (replacements[text]) el.textContent = replacements[text];
+    });
+  };
   const animate = () => {
     document.querySelectorAll('.node').forEach((node, index) => node.animate([{transform:'translateY(0)'},{transform:'translateY(-7px)'},{transform:'translateY(0)'}],{duration:3000+index*450,iterations:Infinity,easing:'ease-in-out'}));
     const core = $('.core'); if (core) core.animate([{transform:'scale(1)'},{transform:'scale(1.035)'},{transform:'scale(1)'}],{duration:4200,iterations:Infinity,easing:'ease-in-out'});
     const toggle = $('[data-menu-toggle]'), drawer = $('[data-drawer]'); if (toggle && drawer) { toggle.addEventListener('click',()=>{drawer.classList.toggle('open');toggle.setAttribute('aria-expanded',drawer.classList.contains('open'));}); drawer.addEventListener('click',(event)=>{if(event.target.closest('a'))drawer.classList.remove('open');}); }
   };
-  addSidebar(); addBackTop(); addMobileNav(); markHomeNav(); animate();
+  addSidebar(); addBackTop(); addMobileNav(); markHomeNav(); persianizeHome(); animate();
 })();
