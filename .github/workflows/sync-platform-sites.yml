@@ -11,12 +11,13 @@ jobs:
     steps:
       - name: Checkout sites repository
         uses: actions/checkout@v4
-      - name: Download AsatidSite source
-        run: |
-          curl -L --fail https://api.github.com/repos/kazemi44468-bot/asatidsite/zipball/main -o /tmp/asatidsite.zip
-          mkdir -p /tmp/source
-          unzip -q /tmp/asatidsite.zip -d /tmp/source-root
-          mv /tmp/source-root/* /tmp/source
+      - name: Checkout AsatidSite source
+        uses: actions/checkout@v4
+        with:
+          repository: kazemi44468-bot/asatidsite
+          ref: main
+          path: /tmp/source
+          fetch-depth: 1
       - name: Copy required site assets
         run: |
           mkdir -p master registry samples/nozari assets
