@@ -29,7 +29,7 @@ jobs:
                   depth=len(p.parent.parts)
                   rel='../'*depth+'assets/css/site-standards.css'
                   new=new.replace('</head>',f'<link rel="stylesheet" href="{rel}"></head>',1)
-              if p.suffix.lower()=='.html' and p.parts[0]=='master' and 'template.js' not in new and '</body>' in new:
+              if p.suffix.lower()=='.html' and p.parts[0]=='master' and p.name not in {'index.html','intro.html'} and 'template.js' not in new and '</body>' in new:
                   depth=len(p.parent.parts)
                   rel='../'*depth+'template.js'
                   new=new.replace('</body>',f'<script src="{rel}"></script></body>',1)
