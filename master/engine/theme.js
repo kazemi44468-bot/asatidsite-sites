@@ -1,0 +1,1 @@
+(()=>{const root=document.documentElement;fetch('../data/theme.json').then(r=>r.json()).then(t=>{if(t.direction)document.documentElement.dir=t.direction;if(t.fonts?.body)root.style.setProperty('--master-body-font',t.fonts.body);if(t.fonts?.script)root.style.setProperty('--master-script-font',t.fonts.script)}).catch(()=>{});})();
