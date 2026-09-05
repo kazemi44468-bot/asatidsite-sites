@@ -1,9 +1,52 @@
-/* AsatidSite Sites — global page standards */
+/* AsatidSite Sites — global design system */
 @font-face{font-family:AsatidVazirmatn;src:url('../fonts/Vazirmatn-Regular.woff2') format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:AsatidVazirmatn;src:url('../fonts/Vazirmatn-Bold.woff2') format('woff2');font-weight:700;font-display:swap}
 @font-face{font-family:AsatidShekasteh;src:url('../fonts/Shekasteh V2.001.ttf') format('truetype');font-weight:400;font-display:swap}
+:root{--as-ink:#122d40;--as-ink-2:#1c455d;--as-muted:#6c7a82;--as-line:#ddd4c5;--as-paper:#f7f3eb;--as-white:#fffdf8;--as-accent:#a78245;--as-accent-soft:#d2b77e;--as-radius:14px;--as-content:1180px;--as-gutter:clamp(18px,5vw,60px);--as-header:74px;--as-section:clamp(68px,8vw,108px)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--as-header) + 18px)}
 html[dir="rtl"] body{font-family:AsatidVazirmatn,Vazirmatn,Tahoma,sans-serif}
+body{margin:0;color:var(--as-ink);font-size:14px;line-height:2;background:var(--as-paper);overflow-x:hidden}
+a,button,input,textarea{font-family:inherit}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
 .calligraphy,.about-script,.calligraphy-note,.script-title,.script-footer,.script-accent{font-family:AsatidShekasteh,Shekasteh,cursive!important;font-weight:400;font-style:normal}
+/* Shared page rhythm */
+header,.topbar{min-height:var(--as-header);height:var(--as-header);padding-inline:var(--as-gutter);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--as-line);background:color-mix(in srgb,var(--as-paper) 91%,transparent);position:sticky;top:0;z-index:50;backdrop-filter:blur(18px)}
+header nav,.topbar nav{display:flex;align-items:center;gap:clamp(18px,2.5vw,32px);font-size:11px;color:var(--as-muted)}
+header nav a,.topbar nav a{position:relative;white-space:nowrap;transition:.2s ease}
+header nav a:hover,.topbar nav a:hover{color:var(--as-accent)}
+header nav a:after,.topbar nav a:after{content:"";position:absolute;right:0;left:0;bottom:-9px;height:1px;background:var(--as-accent);transform:scaleX(0);transform-origin:center;transition:.2s ease}
+header nav a:hover:after,.topbar nav a:hover:after{transform:scaleX(1)}
+.logo,.brand{display:flex;align-items:center;gap:11px;min-width:170px}
+.logo>b,.brand-mark{width:40px;height:40px;display:grid;place-items:center;border:1px solid var(--as-accent);color:var(--as-accent);flex:0 0 auto}
+.logo span,.brand span{font-weight:700;font-size:16px;line-height:1.45}
+.logo small,.brand small{display:block;font-size:8px;font-weight:400;color:var(--as-muted);letter-spacing:.5px}
+header button{border:0;background:var(--as-ink);color:#fff;padding:9px 16px;border-radius:8px;font-size:10px;cursor:pointer}
+main{width:100%}
+.hero{max-width:var(--as-content)!important;margin-inline:auto!important;padding-inline:var(--as-gutter)!important}
+.section,.content-section,.about-section,.contact,.demo{max-width:var(--as-content)!important;margin-inline:auto!important}
+.section,.content-section,.about-section,.contact{padding-block:var(--as-section)!important}
+.section-title{min-height:64px}
+.section-title h2,.section h3,.contact h3{letter-spacing:-.8px}
+.eyebrow,.kicker,.section small,.section-title span,.intake-intro>span,.about-section>span{font-size:10px!important;font-weight:700;letter-spacing:1.2px;line-height:1.5}
+p{line-height:2.15}
+.btn,.primary,.secondary,.demo>a{border-radius:8px!important;transition:transform .2s ease,background .2s ease,border-color .2s ease}
+.btn:hover,.primary:hover,.secondary:hover,.demo>a:hover{transform:translateY(-2px)}
+.stats,.metrics,.manifest{max-width:var(--as-content)!important;margin-inline:auto!important}
+.stats div,.metrics div,.manifest div{min-height:84px;display:flex;flex-direction:column;justify-content:center;align-items:center}
+.stats b,.metrics strong,.manifest b{font-variant-numeric:tabular-nums}
+.professor-grid{align-items:stretch}
+.professor-card,.add-card,.form-shell,.hero-card,.project,.node{border-radius:var(--as-radius)!important}
+.professor-card{min-height:200px}
+.form-shell{box-shadow:0 18px 50px rgba(18,45,64,.08)}
+.intake-section{padding-block:var(--as-section)!important}
+footer{min-height:112px;max-width:var(--as-content)!important;margin-inline:auto!important;padding:28px var(--as-gutter)!important;border-top:1px solid var(--as-line);display:flex;align-items:center;justify-content:space-between;gap:24px;font-size:10px}
+footer b{font-size:15px}
+footer em{font-family:AsatidShekasteh,Shekasteh,cursive!important;font-size:25px}
+.dark{max-width:none!important}
+/* Fixed mobile navigation — one consistent component across the repository */
 .mobile-nav{display:none}
-@media(max-width:700px){body{padding-bottom:84px!important}.mobile-nav{position:fixed!important;display:grid!important;grid-auto-flow:column;grid-auto-columns:1fr;bottom:10px;left:10px;right:10px;min-height:62px;padding:4px;background:rgba(16,43,61,.96);border:1px solid rgba(255,255,255,.12);border-radius:20px;z-index:9999;box-shadow:0 14px 38px rgba(16,43,61,.28);backdrop-filter:blur(16px)}.mobile-nav a{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#b9c3c8!important;text-decoration:none!important;font-size:9px!important;line-height:1.2}.mobile-nav a:first-child,.mobile-nav a:hover{color:#d4b57a!important}.mobile-nav b{font:17px Arial!important;line-height:1}.mobile-nav span{font-family:AsatidVazirmatn,Vazirmatn,Tahoma,sans-serif!important;font-size:8px!important}}
+@media(max-width:900px){header,.topbar{height:68px;min-height:68px}.logo,.brand{min-width:auto}header nav,.topbar nav{display:none}.hero{padding-top:52px!important;padding-bottom:52px!important}.section,.content-section,.about-section,.contact{padding-block:72px!important}.section-title{display:block}.section-title p{margin-top:8px}.intake-section{padding-block:72px!important}}
+@media(max-width:700px){body{padding-bottom:88px!important;font-size:13px}.hero{padding-inline:18px!important}.section,.content-section,.about-section,.contact,.demo{padding-inline:18px!important}.stats,.metrics,.manifest{margin-inline:18px!important;padding-inline:0!important}.stats div,.metrics div,.manifest div{min-height:76px}.hero h1{letter-spacing:-2px}.section h3,.contact h3{letter-spacing:-.5px}.form-shell{padding:22px 18px!important}footer{display:flex!important;flex-direction:column;text-align:center;gap:8px;padding:28px 18px!important;min-height:150px}.mobile-nav{position:fixed!important;display:grid!important;grid-auto-flow:column;grid-auto-columns:1fr;bottom:10px;left:10px;right:10px;min-height:64px;padding:4px;background:rgba(16,43,61,.96);border:1px solid rgba(255,255,255,.12);border-radius:20px;z-index:9999;box-shadow:0 14px 38px rgba(16,43,61,.28);backdrop-filter:blur(16px)}.mobile-nav a{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#b9c3c8!important;text-decoration:none!important;font-size:9px!important;line-height:1.2;min-width:0}.mobile-nav a:first-child,.mobile-nav a:hover{color:#d4b57a!important}.mobile-nav b{font:17px Arial!important;line-height:1}.mobile-nav span{font-family:AsatidVazirmatn,Vazirmatn,Tahoma,sans-serif!important;font-size:8px!important;white-space:nowrap}.calligraphy,.about-script{max-width:100%;overflow:visible}}
 @media(min-width:701px){.mobile-nav{display:none!important}}
