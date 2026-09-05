@@ -1,0 +1,8 @@
+{
+  "theme":"classic-academic",
+  "direction":"rtl",
+  "fonts":{"body":"Vazirmatn","script":"Shekasteh"},
+  "palette":{"ink":"#172d3b","accent":"#a47b39","paper":"#f6f4ef","muted":"#718087"},
+  "layout":{"header":"classic","navigation":"grouped","footer":"academic","mobileNav":true},
+  "intro":{"enabled":true,"style":"portrait-editorial","animation":true}
+}
