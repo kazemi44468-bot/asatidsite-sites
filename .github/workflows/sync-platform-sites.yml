@@ -29,9 +29,9 @@ jobs:
           cp -a /tmp/source/assets/images assets/images
       - name: Normalize local asset paths
         run: |
-          find registry -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' \) -print0 | xargs -0 sed -i "s#../../assets/#../assets/#g"
-          find master -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' \) -print0 | xargs -0 sed -i "s#../../../assets/#../assets/#g"
-          find samples/nozari -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' \) -print0 | xargs -0 sed -i "s#../../assets/#../assets/#g"
+          find registry -maxdepth 1 -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' \) -print0 | xargs -0 sed -i "s#../../assets/#../assets/#g"
+          find master -maxdepth 1 -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' \) -print0 | xargs -0 sed -i "s#../../../assets/#../assets/#g"
+          find master/drhesari -maxdepth 1 -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' \) -print0 | xargs -0 sed -i "s#../../../assets/#../../assets/#g"
       - name: Commit synchronized files
         run: |
           git config user.name 'github-actions[bot]'
