@@ -29,11 +29,11 @@ jobs:
                   depth=len(p.parent.parts)
                   rel='../'*depth+'assets/css/site-standards.css'
                   new=new.replace('</head>',f'<link rel="stylesheet" href="{rel}"></head>',1)
-              if p.suffix.lower()=='.html' and p.parts[0]=='master' and 'master/template.js' not in new and '</body>' in new:
+              if p.suffix.lower()=='.html' and p.parts[0]=='master' and 'template.js' not in new and '</body>' in new:
                   depth=len(p.parent.parts)
                   rel='../'*depth+'template.js'
                   new=new.replace('</body>',f'<script src="{rel}"></script></body>',1)
-              if p.suffix.lower()=='.html' and p.parts[0]=='master' and 'master/master-ui.css' not in new and '</head>' in new:
+              if p.suffix.lower()=='.html' and p.parts[0]=='master' and 'master-ui.css' not in new and '</head>' in new:
                   depth=len(p.parent.parts)
                   rel='../'*depth+'master-ui.css'
                   new=new.replace('</head>',f'<link rel="stylesheet" href="{rel}"></head>',1)
