@@ -1,0 +1,1 @@
+(()=>{window.MasterConfig={site:'./data/site.json',theme:'./data/theme.json',modules:'./data/modules.json'};})();
