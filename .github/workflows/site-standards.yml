@@ -1,0 +1,44 @@
+name: Enforce AsatidSite Site Standards
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  standards:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Normalize local assets and typography
+        shell: python
+        run: |
+          from pathlib import Path
+          for p in Path('.').rglob('*'):
+              if not p.is_file() or p.parts[0] in {'.git'}:
+                  continue
+              if p.suffix.lower() not in {'.html','.css','.js','.json'}:
+                  continue
+              try:
+                  text=p.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  continue
+              new=text.replace('Shekasteh.ttf','Shekasteh V2.001.ttf').replace('../../shared/fonts/','../../assets/fonts/')
+              if p.suffix.lower()=='.html' and 'assets/css/site-standards.css' not in new and '</head>' in new:
+                  depth=len(p.parent.parts)
+                  rel='../'*depth+'assets/css/site-standards.css'
+                  new=new.replace('</head>',f'<link rel="stylesheet" href="{rel}"></head>',1)
+              if new!=text:
+                  p.write_text(new,encoding='utf-8')
+      - name: Commit standards fixes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/css/site-standards.css . ':!source'
+          if git diff --cached --quiet; then
+            echo 'Standards already satisfied.'
+          else
+            git commit -m 'Enforce local fonts and responsive site standards'
+            git push
+          fi
