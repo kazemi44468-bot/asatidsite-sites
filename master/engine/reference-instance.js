@@ -1,0 +1,1 @@
+(()=>{window.MasterReference={kind:'professor',template:'master-academic',identity:'independent',dataSource:'./data/site.json',themeSource:'./data/theme.json',modulesSource:'./data/modules.json'};})();
