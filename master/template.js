@@ -2,27 +2,26 @@
   const $ = (selector) => document.querySelector(selector);
 
   const links = [
-    ['هویت علمی', 'about.html', 'معرفی'],
-    ['', 'education.html', 'تحصیلات'],
-    ['', 'career.html', 'سوابق علمی و اجرایی'],
-    ['پژوهش و آثار', 'research.html', 'پژوهش'],
-    ['', 'publications.html', 'مقالات و کتاب‌ها'],
-    ['', 'projects.html', 'پروژه‌ها'],
-    ['', 'grants.html', 'گرنت‌ها'],
-    ['', 'lab.html', 'آزمایشگاه و گروه پژوهشی'],
-    ['آموزش', 'teaching.html', 'دروس و منابع'],
-    ['', 'supervision.html', 'راهنمایی و دانشجویان'],
-    ['اعتبار علمی', 'achievements.html', 'جوایز و افتخارات'],
-    ['', 'activities.html', 'فعالیت‌های علمی'],
-    ['', 'events.html', 'رویدادها و سخنرانی‌ها'],
-    ['', 'network.html', 'شبکه علمی'],
-    ['ارتباط و رسانه', 'media.html', 'رسانه و اخبار'],
-    ['', 'contact.html', 'تماس و همکاری'],
-    ['', 'downloads.html', 'مرکز دانلود']
+    ['پروفایل استاد', 'about.html', 'هویت علمی'],
+    ['پروفایل استاد', 'education.html', 'تحصیلات'],
+    ['پروفایل استاد', 'career.html', 'سوابق علمی و اجرایی'],
+    ['پژوهش و دستاوردها', 'research.html', 'پژوهش'],
+    ['پژوهش و دستاوردها', 'publications.html', 'مقالات و کتاب‌ها'],
+    ['پژوهش و دستاوردها', 'projects.html', 'پروژه‌ها'],
+    ['پژوهش و دستاوردها', 'grants.html', 'گرنت‌ها و حمایت‌ها'],
+    ['پژوهش و دستاوردها', 'lab.html', 'آزمایشگاه و گروه پژوهشی'],
+    ['آموزش و راهنمایی', 'teaching.html', 'دروس و منابع'],
+    ['آموزش و راهنمایی', 'supervision.html', 'دانشجویان و پایان‌نامه‌ها'],
+    ['اعتبار و حضور علمی', 'achievements.html', 'جوایز و افتخارات'],
+    ['اعتبار و حضور علمی', 'activities.html', 'فعالیت‌های علمی'],
+    ['اعتبار و حضور علمی', 'events.html', 'رویدادها و سخنرانی‌ها'],
+    ['اعتبار و حضور علمی', 'network.html', 'شبکه علمی'],
+    ['رسانه و ارتباط', 'media.html', 'رسانه و گالری'],
+    ['رسانه و ارتباط', 'contact.html', 'تماس و همکاری'],
+    ['رسانه و ارتباط', 'downloads.html', 'مرکز دانلود']
   ];
 
   const isHome = !location.pathname.includes('/pages/');
-
   const make = (tag, cls, text) => {
     const element = document.createElement(tag);
     if (cls) element.className = cls;
@@ -34,23 +33,27 @@
     if ($('.master-sidebar')) return;
 
     const aside = make('aside', 'master-sidebar');
-    aside.setAttribute('aria-label', 'ناوبری وب‌سایت');
+    aside.setAttribute('aria-label', 'ناوبری اصلی پایگاه استاد');
 
     const title = make('div', 'sidebar-title');
-    title.innerHTML = '<span>MASTER</span><b>ACADEMIC</b>';
+    title.innerHTML = '<span>MASTER ACADEMIC</span><b>پایگاه علمی استاد</b>';
     aside.append(title);
 
     let group = '';
+    let groupIndex = 0;
 
     links.forEach(([section, href, text]) => {
-      if (section && section !== group) {
+      if (section !== group) {
         group = section;
-        aside.append(make('div', 'sidebar-group', section));
+        groupIndex += 1;
+        const heading = make('div', 'sidebar-group');
+        heading.innerHTML = `<span>${String(groupIndex).padStart(2, '0')}</span><b>${section}</b>`;
+        aside.append(heading);
       }
 
       const link = make('a', 'sidebar-link');
       link.href = isHome ? `pages/${href}` : href;
-      link.textContent = text;
+      link.innerHTML = `<span>${text}</span><i>↙</i>`;
 
       if (!isHome && location.pathname.endsWith(`/${href}`)) {
         link.classList.add('active');
@@ -63,13 +66,18 @@
 
     const tab = make('button', 'sidebar-toggle', '☰');
     tab.type = 'button';
-    tab.setAttribute('aria-label', 'نمایش منوی کناری');
-    tab.addEventListener('click', () => aside.classList.toggle('open'));
+    tab.setAttribute('aria-label', 'باز کردن منوی پایگاه استاد');
+    tab.setAttribute('aria-expanded', 'false');
+    tab.addEventListener('click', () => {
+      const open = aside.classList.toggle('open');
+      tab.setAttribute('aria-expanded', String(open));
+    });
     document.body.append(tab);
 
     aside.addEventListener('click', (event) => {
       if (event.target.closest('a')) {
         aside.classList.remove('open');
+        tab.setAttribute('aria-expanded', 'false');
       }
     });
   };
@@ -99,22 +107,25 @@
       ['../#contact', 'تماس']
     ];
 
-    const icons = {
-      خانه: '⌂',
-      استاد: '◉',
-      پژوهش: '⌁',
-      آثار: '▤',
-      تماس: '✦'
-    };
+    const icons = { خانه: '⌂', استاد: '◉', پژوهش: '⌁', آثار: '▤', تماس: '✦' };
 
     items.forEach(([href, text]) => {
       const link = make('a');
       link.href = href;
-      link.innerHTML = `<span>${icons[text]}</span>${text}`;
+      link.innerHTML = `<span>${icons[text]}</span><b>${text}</b>`;
       nav.append(link);
     });
 
     document.body.append(nav);
+  };
+
+  const markHomeNav = () => {
+    if (!isHome) return;
+    const current = location.hash || '#home';
+    document.querySelectorAll('header nav a').forEach((link) => {
+      const href = link.getAttribute('href');
+      if (href === current) link.classList.add('active');
+    });
   };
 
   const animate = () => {
@@ -125,11 +136,7 @@
           { transform: 'translateY(-7px)' },
           { transform: 'translateY(0)' }
         ],
-        {
-          duration: 3000 + index * 450,
-          iterations: Infinity,
-          easing: 'ease-in-out'
-        }
+        { duration: 3000 + index * 450, iterations: Infinity, easing: 'ease-in-out' }
       );
     });
 
@@ -141,11 +148,7 @@
           { transform: 'scale(1.035)' },
           { transform: 'scale(1)' }
         ],
-        {
-          duration: 4200,
-          iterations: Infinity,
-          easing: 'ease-in-out'
-        }
+        { duration: 4200, iterations: Infinity, easing: 'ease-in-out' }
       );
     }
 
@@ -155,16 +158,11 @@
     if (toggle && drawer) {
       toggle.addEventListener('click', () => {
         drawer.classList.toggle('open');
-        toggle.setAttribute(
-          'aria-expanded',
-          drawer.classList.contains('open')
-        );
+        toggle.setAttribute('aria-expanded', drawer.classList.contains('open'));
       });
 
       drawer.addEventListener('click', (event) => {
-        if (event.target.closest('a')) {
-          drawer.classList.remove('open');
-        }
+        if (event.target.closest('a')) drawer.classList.remove('open');
       });
     }
   };
@@ -172,5 +170,6 @@
   addSidebar();
   addBackTop();
   addMobileNav();
+  markHomeNav();
   animate();
 })();
